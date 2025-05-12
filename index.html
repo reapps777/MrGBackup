@@ -42,7 +42,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Favicon -->
+    <meta name="description" content="MrGaming Streams - Official status page for live sports streaming. Find all operational mirror links and backup sites for uninterrupted access worldwide.">
+    <meta name="keywords" content="live sports streaming, MrGaming, streaming status, sports streams, mirror links, backup sites">
+    <meta name="author" content="MrGaming Streams">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="MrGaming Streams - Official Status Page">
+    <meta property="og:description" content="Check the operational status of all MrGaming Streams services and find official backup links for uninterrupted sports streaming.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.mrgbackup.link">
+    <link rel="canonical" href="https://www.mrgbackup.link">
     <link rel="shortcut icon" type="image/x-icon" href="https://i.ibb.co/23yrSHdd/mrgicon.jpg" />
     <title>MrGamingStreams Official Mirror List (Updated 2025) | Access Live Streams</title>
     <style>
@@ -50,6 +58,7 @@
             --bg-color: #1a1a1a;
             --card-bg: rgba(255, 255, 255, 0.1);
             --text-color: #ffffff;
+            --text-secondary: #cccccc;
             --accent-green: #00cc00;
             --alert-bg: rgba(0, 204, 0, 0.2);
             --alert-text: #b3ffb3;
@@ -72,6 +81,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            line-height: 1.6;
         }
 
         .container {
@@ -111,12 +121,38 @@
 
         .logo {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .logo img {
             max-width: 450px;
             height: auto;
+        }
+
+        .info-message {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgb(0 204 0 / 8%);
+            border-radius: 10px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            border: var(--border);
+            line-height: 1.5;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .last-updated {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
 
         .status-list {
@@ -164,6 +200,19 @@
             height: 10px;
             background: var(--accent-green);
             border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 204, 0, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 204, 0, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 204, 0, 0);
+            }
         }
 
         .status-label {
@@ -178,11 +227,20 @@
             border-radius: 20px;
             text-decoration: none;
             font-weight: 500;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.2s;
+            display: inline-block;
         }
 
         .visit-btn:hover {
             background: #00b300;
+            transform: scale(1.05);
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
 
         @media (max-width: 600px) {
@@ -202,20 +260,43 @@
             }
 
             .logo img {
-                max-width: 320px;
+                max-width: 300px;
             }
 
-            .alert {
+            .alert, .info-message {
                 font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
             }
         }
     </style>
+    <!-- Schema.org structured data for better SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "MrGaming Streams",
+        "url": "https://mrgbackup.link",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://mrgbackup.link/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        },
+        "description": "Live sports streaming service with multiple backup sites to ensure worldwide accessibility."
+    }
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="logo">
-            <img src="https://i.ibb.co/4gp6SBBx/mrgaming1.png" alt="mrgamingstreams">
+            <img src="https://i.ibb.co/4gp6SBBx/mrgaming1.png" alt="MrGaming Streams Logo">
         </div>
+        <div class="info-message">
+            Due to frequent shutdowns and restrictions, MrGamingStreams frequently updates its mirror links to stay accessible worldwide. Always use updated and official Backup sites listed here to enjoy uninterrupted live sports streaming safely.
+        </div>
+        <div class="last-updated">Last updated: <span id="current-date">May 12, 2025</span></div>
         <div class="status-list">
             <div class="status-item" onclick="window.location.href='http://mrgamingstreams.org'">
                 <div class="status-info">
@@ -225,7 +306,7 @@
                         <span class="status-label">Operational</span>
                     </div>
                 </div>
-                <a href="http://mrgamingstreams.org" class="visit-btn">Visit</a>
+                <a href="http://mrgamingstreams.org" class="visit-btn" aria-label="Visit MrGaming main site">Visit</a>
             </div>
             <div class="status-item" onclick="window.location.href='https://rekraken.com'">
                 <div class="status-info">
@@ -235,7 +316,7 @@
                         <span class="status-label">Operational</span>
                     </div>
                 </div>
-                <a href="https://www.rekraken.com" class="visit-btn">Visit</a>
+                <a href="https://www.rekraken.com" class="visit-btn" aria-label="Visit MrGaming mobile app">Visit</a>
             </div>
             <div class="status-item" onclick="window.location.href='https://discord.gg/BCtqVn5JKR'">
                 <div class="status-info">
@@ -245,9 +326,61 @@
                         <span class="status-label">Operational</span>
                     </div>
                 </div>
-                <a href="https://discord.gg/BCtqVn5JKR" class="visit-btn">Visit</a>
+                <a href="https://discord.gg/BCtqVn5JKR" class="visit-btn" aria-label="Join MrGaming Discord server">Visit</a>
             </div>
         </div>
+        <footer>
+            <p>© 2025 MrGaming Streams ❤️</p>
+        </footer>
     </div>
+
+    <script>
+        // Update the current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        // Keep the original script from the source
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+    </script>
 </body>
 </html>
