@@ -1,0 +1,251 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Page</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --accent-green: #00cc00;
+            --alert-bg: rgba(0, 204, 0, 0.2);
+            --alert-text: #b3ffb3;
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            --border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            border: var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .alert {
+            background: var(--alert-bg);
+            color: var(--alert-text);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 204, 0, 0.3);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alert::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0.3;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            max-width: 450px;
+            height: auto;
+        }
+
+        .status-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: var(--border);
+            transition: transform 0.2s, background 0.3s;
+            cursor: pointer;
+        }
+
+        .status-item:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .status-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .status-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent-green);
+            border-radius: 50%;
+        }
+
+        .status-label {
+            font-size: 0.9rem;
+            color: var(--accent-green);
+        }
+
+        .visit-btn {
+            background: var(--accent-green);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .visit-btn:hover {
+            background: #00b300;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .status-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .visit-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .logo img {
+                max-width: 320px;
+            }
+
+            .alert {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://i.ibb.co/4gp6SBBx/mrgaming1.png" alt="mrgamingstreams">
+        </div>
+        <div class="status-list">
+            <div class="status-item" onclick="window.location.href='http://mrgamingstreams.org'">
+                <div class="status-info">
+                    <span class="status-text">Main Site</span>
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span class="status-label">Operational</span>
+                    </div>
+                </div>
+                <a href="http://mrgamingstreams.org" class="visit-btn">Visit</a>
+            </div>
+            <div class="status-item" onclick="window.location.href='https://rekraken.com'">
+                <div class="status-info">
+                    <span class="status-text">Mobile App</span>
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span class="status-label">Operational</span>
+                    </div>
+                </div>
+                <a href="https://www.rekraken.com" class="visit-btn">Visit</a>
+            </div>
+            <div class="status-item" onclick="window.location.href='https://discord.gg/BCtqVn5JKR'">
+                <div class="status-info">
+                    <span class="status-text">Discord Server</span>
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span class="status-label">Operational</span>
+                    </div>
+                </div>
+                <a href="https://discord.gg/BCtqVn5JKR" class="visit-btn">Visit</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
